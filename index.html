@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="box">
+        <div class="box2">
+            <h1>Enter City Name</h1>
+            <input type="text" name="" id="input"><button id="btn" onclick='addtask()' >find</button>
+            <p>Temperature: <span id="temperature"></span>°C</p>
+            <p>Weather: <span id="weather"></span></p>
+        </div>
+    </div>
+
+    <script>
+        // let btn =document.getElementById('btn')
+        const input= document.getElementById('input')
+        const temperature = document.getElementById('temperature');
+        const weather = document.getElementById('weather');
+
+        console.log(input.value)
+        function addtask(){
+          
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${input.value}&appid=f624ca5d6342db880adb7be63142ed06&units=metric`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                temperature.textContent = data.main.temp;
+                weather.textContent = data.weather.map((item,index) => (
+                  item.description  
+                ))
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+    </script>
+</body>
+
+</html>
